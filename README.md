@@ -1,0 +1,2 @@
+# Context-Aware-Research-Brief-Generator-Using-LangGraph-and-LangChain
+FastAPI in Google Colab – Local API Development Run a fully functional FastAPI server directly inside Google Colab without external hosting. Includes automatic process management, local API testing, and easy integration with Gradio or Hugging Face models. Ideal for prototyping, ML model deployment, and rapid API experimentation.
