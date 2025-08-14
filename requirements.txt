@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+langgraph
+langchain
+langchain-community
+transformers
+accelerate
+pydantic
+duckduckgo-search
+beautifulsoup4
+requests
+typer
+python-dotenv
+gradio
+pytest
