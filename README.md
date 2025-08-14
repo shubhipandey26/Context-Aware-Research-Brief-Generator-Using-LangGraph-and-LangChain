@@ -1,10 +1,13 @@
-#🚀 FastAPI in Google Colab – Local API Development
+#
+🚀 FastAPI in Google Colab – Local API Development
 
 Run a fully functional FastAPI server directly inside Google Colab without any external hosting.
 This project sets up a local development environment for testing APIs, integrating ML models, and connecting with Gradio or Hugging Face for rapid prototyping.
 
 ---
-#📌 Features
+
+#
+📌 Features
 
 ✅ Run FastAPI in Google Colab without needing a cloud VM or deployment.
 ✅ Automatic process management – kills existing uvicorn processes before starting.
@@ -13,7 +16,9 @@ This project sets up a local development environment for testing APIs, integrati
 ✅ Easy to extend with Gradio UI or Hugging Face Spaces.
 
 ---
-#📂 Project Structure
+
+#
+📂 Project Structure
 
 project-root/
 │
@@ -27,6 +32,8 @@ project-root/
 └── README.md          # Project documentation
 
 ---
+
+#
 ⚙️ Installation & Setup
 
 1️⃣ Clone the repository
@@ -42,6 +49,8 @@ API will be accessible at:
 http://127.0.0.1:8000
 
 ---
+
+#
 🖥 Example API Call
 
 Once the server is running, test it with:
@@ -56,6 +65,8 @@ response = requests.post("http://127.0.0.1:8000/brief", json=payload)
 print(json.dumps(response.json(), indent=2))
 
 ---
+
+#
 📜 Example API Response
 
 {
@@ -65,6 +76,8 @@ print(json.dumps(response.json(), indent=2))
 }
 
 ---
+
+#
 📌 Requirements
 
 Python 3.9+
@@ -72,6 +85,8 @@ Google Colab environment
 FastAPI, Uvicorn, psutil, nest_asyncio, requests
 
 ---
+
+#
 🔗 Useful Links
 
 FastAPI Documentation
@@ -79,6 +94,8 @@ Gradio Documentation
 Hugging Face Spaces
 
 ---
+
+#
 📄 License
 
 This project is licensed under the MIT License – feel free to modify and use for your own projects.
