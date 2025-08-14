@@ -1,130 +1,68 @@
-# 🚀 FastAPI in Google Colab (Localhost)
-
-Run a **FastAPI server directly inside Google Colab**, make API calls from within Colab, and manage server processes seamlessly.  
-This setup is ideal for **prototyping APIs, testing ML models**, and integrating with tools like Gradio or Hugging Face.
-
+#🚀 FastAPI in Google Colab – Local API Development
+Run a fully functional FastAPI server directly inside Google Colab without any external hosting.
+This project sets up a local development environment for testing APIs, integrating ML models, and connecting with Gradio or Hugging Face for rapid prototyping.
 ---
-
-## 📂 Project Structure
-project/
+#📌 Features
+✅ Run FastAPI in Google Colab without needing a cloud VM or deployment.
+✅ Automatic process management – kills existing uvicorn processes before starting.
+✅ Local API endpoint testing with requests.
+✅ Ready-to-use structure for ML/AI project integration.
+✅ Easy to extend with Gradio UI or Hugging Face Spaces.
+---
+#📂 Project Structure
+project-root/
 │
 ├── app/
-│ ├── init.py
-│ └── api.py # FastAPI app definition
+│   ├── __init__.py
+│   ├── api.py         # Main FastAPI app
+│   └── utils.py       # Optional helper functions
 │
-├── main_colab.py # Script to manage server & API calls
-└── requirements.txt # Dependencies
-
+├── requirements.txt   # Python dependencies
+├── main.ipynb         # Google Colab Notebook
+└── README.md          # Project documentation
 ---
-
-## 🛠️ Installation
-
-In a Colab cell, run:
-pip install fastapi uvicorn nest_asyncio psutil requests
-🖥️ API Details
-Base URL (Localhost in Colab):
-
+⚙️ Installation & Setup
+1️⃣ Clone the repository
+git clone https://github.com/your-username/fastapi-colab.git
+cd fastapi-colab
+2️⃣ Install dependencies
+pip install -r requirements.txt
+3️⃣ Run in Google Colab
+Upload the project files to your Colab environment.
+Open main.ipynb in Colab.
+Execute all cells to start the FastAPI server.
+API will be accessible at:
 http://127.0.0.1:8000
-POST /brief
-Generates a mock "brief" based on given parameters.
-
-Request Body
-{
-  "topic": "string",
-  "depth": 2,
-  "follow_up": false,
-  "user_id": "u1"
-}
-Example Response
-{
-  "message": "Brief generated successfully!",
-  "data": {
-    "topic": "LLM evaluation methods in production",
-    "depth": 2,
-    "follow_up": false,
-    "user_id": "u1"
-  }
-}
-▶️ How to Run in Google Colab
-1️⃣ Create the FastAPI App
-
-!mkdir -p app
-!touch app/__init__.py
-
-%%writefile app/api.py
-from fastapi import FastAPI
-from pydantic import BaseModel
-
-app = FastAPI()
-
-class BriefRequest(BaseModel):
-    topic: str
-    depth: int
-    follow_up: bool
-    user_id: str
-
-@app.post("/brief")
-async def brief(request: BriefRequest):
-    return {
-        "message": "Brief generated successfully!",
-        "data": request.dict()
-    }
-2️⃣ Start the FastAPI Server
-
-import subprocess, time, requests, json, os, signal, psutil, nest_asyncio
-nest_asyncio.apply()
-
-# Kill any existing uvicorn processes to avoid conflicts
-for p in psutil.process_iter(attrs=["pid","name","cmdline"]):
-    try:
-        if p.info["cmdline"] and "uvicorn" in " ".join(p.info["cmdline"]):
-            os.kill(p.info["pid"], signal.SIGKILL)
-    except Exception:
-        pass
-
-# Start FastAPI server
-server = subprocess.Popen(
-    ["uvicorn", "app.api:app", "--host", "0.0.0.0", "--port", "8000"],
-    stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
-)
-time.sleep(3)  # Allow server time to start
-3️⃣ Send a Test Request
-
+---
+🖥 Example API Call
+Once the server is running, test it with:
+import requests, json
 payload = {
     "topic": "LLM evaluation methods in production",
     "depth": 2,
     "follow_up": False,
     "user_id": "u1"
 }
-response = requests.post("http://127.0.0.1:8000/brief", json=payload, timeout=180)
-print("Status:", response.status_code)
+response = requests.post("http://127.0.0.1:8000/brief", json=payload)
 print(json.dumps(response.json(), indent=2))
-⚠️ Troubleshooting
-1. Module Not Found
-
-ERROR: Could not import module "app.api"
-✅ Ensure app/api.py exists and contains app = FastAPI().
-
-2. Connection Refused
-
-ConnectionRefusedError: [Errno 111] Connection refused
-✅ Increase time.sleep(3) in the server start cell.
-
-📚 Features
-Run FastAPI directly inside Google Colab
-
-Automatically kills previous server instances to prevent port conflicts
-
-Uses Pydantic for request validation
-
-Easily extendable to multiple endpoints
-
-🚀 Next Steps
-Add a Gradio UI for live interaction
-
-Integrate Hugging Face models for AI-powered endpoints
-
-Make the API public with ngrok or Hugging Face Spaces
-
-📜 License
-This project is licensed under the MIT License.
+---
+📜 Example API Response
+{
+  "summary": "This is a generated brief about LLM evaluation methods in production...",
+  "topic": "LLM evaluation methods in production",
+  "depth": 2
+}
+---
+📌 Requirements
+Python 3.9+
+Google Colab environment
+FastAPI, Uvicorn, psutil, nest_asyncio, requests
+---
+🔗 Useful Links
+FastAPI Documentation
+Gradio Documentation
+Hugging Face Spaces
+---
+📄 License
+This project is licensed under the MIT License – feel free to modify and use for your own projects.
+---
